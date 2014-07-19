@@ -1,12 +1,15 @@
 var five = require("johnny-five"),
   keypress = require("keypress"),
-  board = new five.Board();
+  board = new five.Board({
+    port: '/dev/rfcomm1'
+  });
 
 
 board.on("ready", function() {
-  var speed, commands, motors;
+  var speed, commands, motors, speedB;
 
-  speed = 250;
+  speed = 100;
+  speedB = speed * 0.96;
   commands = null;
   motors = {
     a: new five.Motor([3, 12]),
@@ -25,25 +28,26 @@ board.on("ready", function() {
       }
       if (key.name === "up") {
         motors.a.rev(speed);
-        motors.b.fwd(speed);
+        motors.b.fwd(speedB);
       }
       if (key.name === "down") {
         motors.a.fwd(speed);
-        motors.b.rev(speed);
+        motors.b.rev(speedB);
       }
       if (key.name === "right") {
-        motors.a.fwd(speed * 0.75);
-        motors.b.fwd(speed * 0.75);
+        motors.a.fwd(speed);
+        motors.b.fwd(speedB);
       }
       if (key.name === "left") {
-        motors.a.rev(speed * 0.75);
-        motors.b.rev(speed * 0.75);
+        motors.a.rev(speed);
+        motors.b.rev(speedB);
       }
 
       commands = [].slice.call(arguments);
     } else {
       if (ch >= 1 && ch <= 9) {
         speed = five.Fn.scale(ch, 1, 9, 0, 255);
+        speedB = speed * 0.8;
         controller.apply(null, commands);
       }
     }

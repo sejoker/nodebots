@@ -3,12 +3,6 @@ var five = require("johnny-five"),
   device = process.argv[2] || "2Y0A02";
 
 board.on("ready", function() {
-  var servo = new five.Servo({
-    pin: 12,
-    center: true
-  });
-
-  servo.sweep();
   var distance = new five.IR.Distance({
     device: device,
     pin: "A0",
