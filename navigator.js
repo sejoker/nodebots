@@ -4,7 +4,7 @@ var five = require('johnny-five'),
     board;
 
 board = new five.Board({
-  //port: '/dev/rfcomm1'
+  port: '/dev/ttyATH0'
 });
 
 
@@ -13,7 +13,8 @@ board.on('ready', function() {
     pin: 10,
   });
 
- 
+  console.log('connected to board');
+  
   var speed, speedB, motors;
 
   speed = 200;
