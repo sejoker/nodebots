@@ -1,7 +1,8 @@
 var five = require("johnny-five"),
   keypress = require("keypress"),
   board = new five.Board({
-    port: '/dev/rfcomm1'
+    //port: '/dev/rfcomm1'
+    port: '/dev/ttyATH0'
   });
 
 
